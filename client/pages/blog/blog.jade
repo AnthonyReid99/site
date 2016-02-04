@@ -1,0 +1,22 @@
+template(name="Blog")
+    .blog
+        .container
+            +each posts
+                +Article
+
+
+template(name="Article")
+    .article.markdown-text
+        h3.title {{ title }}
+        h6.subtitle
+            span by
+            span.author {{ author }}
+            span on
+            span {{ postedOnDate }}
+        .post
+        +markdown
+            {{ post }}
+        .labels
+            +each blogPostLabels
+                +with label
+                    .chip(style="background-color: {{ color }}") {{ text }}

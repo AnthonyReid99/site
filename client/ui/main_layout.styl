@@ -1,0 +1,85 @@
+
+.main-layout
+  display flex
+  flex-direction column
+  height 100vh
+
+
+nav.navbar
+  a.active
+    background-color rgba(0, 0, 0, 0.1)
+    outline 0
+
+
+a.login-button, a.logout-button
+  opacity .1
+
+  &:hover
+    opacity .6
+
+#login-modal.modal
+  width 30%
+
+  .success.modal-content
+    display none
+
+    color #4db6ac
+    text-align center
+    i
+      font-size 48pt
+
+.chip
+  color white
+
+.markdown-text
+
+  img
+    max-height 600px
+
+  p
+    padding 10px
+
+  ul, li
+    list-style-type disc
+    list-style-position inside
+
+  ul ul, ol ul
+    list-style-type circle
+    list-style-position inside
+    margin-left 15px
+
+  ol ol, ul ol
+    list-style-type lower-latin
+    list-style-position inside
+    margin-left 15px
+
+
+.loading-pane
+  position absolute
+  top 0
+  right 0
+  bottom 0
+  left 0
+
+  display flex
+  align-items center
+  justify-content center
+
+  background white
+  opacity .7
+
+h1, h2, h3, h4, h5, h6, p
+  color #5D5D5D
+
+
+::-webkit-scrollbar
+  width 4px
+  height 2px
+
+::-webkit-scrollbar-track
+  background-color transparent
+  border none
+
+::-webkit-scrollbar-thumb
+  border-radius 25px
+  background-color darkgrey

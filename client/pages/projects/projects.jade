@@ -1,0 +1,22 @@
+template(name="ProjectsPage")
+    .projects
+        .container
+            +each projects
+                +ProjectPosting
+
+
+template(name="ProjectPosting")
+    .project-posting.markdown-text
+        h3.title {{ name }}
+        h6.subtitle
+            span by
+            span.author {{ author }}
+            span on
+            span {{ postedOnDate }}
+        .post
+        +markdown
+            {{ description }}
+        .labels
+            +each projectLabels
+                +with label
+                    .chip(style="background-color: {{ color }}") {{ text }}

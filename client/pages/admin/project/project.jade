@@ -1,0 +1,90 @@
+template(name="Projects")
+    #projects
+        +EditProject
+        +RemoveProject
+        .add-project
+            a.btn-floating.btn-large.blue.create-project
+                i.material-icons add
+
+        +if projects
+            ul.collapsible(data-collapsible="accordion")
+                +each projects
+                    li.table-row
+                        .collapsible-header
+                            +if name
+                                .table-val.name {{ name }}
+                            +else
+                                .table-val.name.parenthetical untitled
+                            .table-val.author by {{ author }}
+                            .table-val.created-at {{ createdAt }}
+                            .table-val.status(class=status) {{ status }}
+                            .table-val.project-controls
+                                i.material-icons.edit-project open_in_new
+                                i.material-icons.remove-project delete
+                            .table-val.labels.scrollable
+                                +each labels
+                                    .label.chip(style="background-color: {{ color }}; color: {{ textColor }}") {{ text }}
+                        .collapsible-body
+                            .project-body.markdown-text
+                                +if description
+                                    +markdown
+                                        {{ description }}
+                                +else
+                                    p.flow-text.parenthetical.center-align project is empty
+                +else
+                    li.table-row
+                        .collapsible-header
+                            .parenthetical.flow-text.full-flex.center-align no projects
+                        .collapsible-body
+                            .flow-text.center-align Oh, you didn't believe me?
+        +else
+            h4.center-align No Projects
+
+
+template(name="EditProject")
+    #edit-project.modal
+        .form.modal-content.markdown-text
+            +with project
+                .name
+                    h4 Edit project
+                .input-field
+                    input#name(type="text" value=name)
+                    label(for="name" class="{{ classIfTrue name 'active' }}") Title
+                .md-editor
+                    +MDEdit(id='projectDescription' defaultContent=description)
+                    +if $.Session.get 'projectLoading'
+                        +LoadingPane
+                .input-field
+                    input#remoteUrl(type="text" value=remoteUrl)
+                    label(for="remoteUrl" class="{{ classIfTrue remoteUrl 'active' }}") Remote URL
+                .project-labels
+                    +each labels
+                        +if selectedLabel
+                            .label.chip.z-depth-2.selected(style="background-color: {{ color }}; color: {{ textColor }}") {{ text }}
+                        +else
+                            .label.chip(style="background-color: {{ color }}; color: {{ textColor }}") {{ text }}
+                .action-buttons
+                    a.btn.save Save
+                    +if $eq status 'draft'
+                        a.btn.publish Publish
+                    +if isEmpty
+                        a.btn.float-right Discard
+
+
+template(name="RemoveProject")
+    #remove-project.modal
+        .form.modal-content
+            +with project
+                .name
+                    h4 Remove '{{ $or name "(untitled)" }}'?
+                .body
+                    p Are you sure?
+                +if $eq status 'published'
+                    p This project has been published. Please retype the name to remove.
+                    .input-field
+                        input#verification(type="text")
+                        label(for="verification") Verify
+                .action-buttons
+                    a.btn.red.lighten-2.confirm-remove
+                        i.material-icons.left delete
+                        | Remove

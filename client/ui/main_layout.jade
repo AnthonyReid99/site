@@ -1,0 +1,63 @@
+head
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+    link(href="../css/froala_style.min.css" rel="stylesheet" type="text/css")
+
+
+template(name="MainLayout")
+    .main-layout
+        +Navbar
+        +Template.dynamic template=content
+
+
+template(name="Navbar")
+    +LoginModal
+    nav.navbar.teal.lighten-2
+        .nav-wrapper
+            ul#nav.left
+                +each navItems
+                    li
+                        a.nav-link(class="{{ classIfTrue isActive 'active' }}") {{ text }}
+            ul.right
+                +if $.Meteor.userId
+                    li
+                        a.logout-button
+                            i.material-icons trending_flat
+                +else
+                    li
+                        a.login-button
+                            i.material-icons perm_identity
+
+
+template(name="LoginModal")
+    #login-modal.modal
+        form.modal-content
+            h4 Login
+            .input-field
+                input#user-name(type="text")
+                label(for="user-name") User Name
+            .input-field
+                input#password(type="password")
+                label(for="password") Password
+            button(type='submit').btn
+                | Login
+        .success.modal-content
+            i.material-icons done
+
+
+template(name="LoadingPane")
+    .loading-pane
+        .preloader-wrapper.active
+            .spinner-layer.spinner-green-only
+                .circle-clipper.left
+                    .circle
+                .gap-patch
+                    .circle
+                .circle-clipper.right
+                    .circle
+
+
+template(name="ColorPicker")
+    .color-picker(class='{{ class }}')
+        select.override-materialize(name='color')
+            +each colors
+                option(value="{{ hexValue }}" data-color="{{ hexValue }}") {{ hexValue }}

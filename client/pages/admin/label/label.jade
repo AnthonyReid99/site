@@ -1,0 +1,22 @@
+template(name="Labels")
+    .labels.containter
+        .row
+            .col.s4
+                h5 Create label
+                    .customize-label
+                        .input-field
+                            input#text(type="text" value=title autofocus='true')
+                            label(for="text") Text
+                        +ColorPicker
+                        .create-label
+                            i.material-icons add
+        .row
+            .col.s12
+                h5 My Labels
+                    .my-labels
+                        +each labels
+                            .label.chip(style="background-color: {{ color }}") {{ text }}
+                                i.material-icons.remove-label close
+                        +else
+                            .no-labels
+                                | no labels

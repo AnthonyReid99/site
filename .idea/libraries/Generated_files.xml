@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/client/controller/espanol/vocabulario.js" />
+      <root url="file://$PROJECT_DIR$/client/controller/espanol/espanol.js" />
+      <root url="file://$PROJECT_DIR$/client/controller/blog/Blog.js" />
+      <root url="file://$PROJECT_DIR$/client/view/espanol/routes.js" />
+      <root url="file://$PROJECT_DIR$/client/routes.js" />
+      <root url="file://$PROJECT_DIR$/client/controller/espanol/vocabulario.js" />
+      <root url="file://$PROJECT_DIR$/client/controller/espanol/espanol.js" />
+      <root url="file://$PROJECT_DIR$/client/controller/blog/Blog.js" />
+      <root url="file://$PROJECT_DIR$/client/view/espanol/routes.js" />
+      <root url="file://$PROJECT_DIR$/client/routes.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

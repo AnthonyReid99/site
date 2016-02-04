@@ -1,0 +1,17 @@
+template(name="Admin")
+    #admin.container
+        .row.low-row
+            .col.s12
+                ul.tabs.row
+                    li.tab.col.s4
+                        a.active(href="#posts-tab") Posts
+                    li.tab.col.s4
+                        a(href="#labels-tab") Labels
+                    li.tab.col.s4
+                        a(href="#projects-tab") Projects
+            #posts-tab
+                +Posts
+            #labels-tab
+                +Labels
+            #projects-tab
+                +Projects

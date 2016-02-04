@@ -1,0 +1,87 @@
+template(name="Posts")
+    #posts
+        +EditPost
+        +RemovePost
+        .add-post
+            a.btn-floating.btn-large.blue.create-post
+                i.material-icons note_add
+
+        +if posts
+            ul.collapsible(data-collapsible="accordion")
+                +each posts
+                    li.table-row
+                        .collapsible-header
+                            +if title
+                                .table-val.title {{ title }}
+                            +else
+                                .table-val.title.parenthetical untitled
+                            .table-val.author by {{ author }}
+                            .table-val.created-at {{ createdAt }}
+                            .table-val.status(class=status) {{ status }}
+                            .table-val.post-controls
+                                i.material-icons.edit-post open_in_new
+                                i.material-icons.remove-post delete
+                            .table-val.labels
+                                +each labels
+                                    .label.chip(style="background-color: {{ color }}; color: {{ textColor }}") {{ text }}
+                        .collapsible-body
+                            .post-body.markdown-text
+                                +if post
+                                    +markdown
+                                        {{ post }}
+                                +else
+                                    p.flow-text.parenthetical.center-align post is empty
+                +else
+                    li.table-row
+                        .collapsible-header
+                            .parenthetical.flow-text.full-flex.center-align no posts
+                        .collapsible-body
+                            .flow-text.center-align Oh, you didn't believe me?
+        +else
+            h4.center-align No Posts
+
+
+template(name="EditPost")
+    #edit-post.modal
+        .form.modal-content.markdown-text
+            +with blogPost
+                .title
+                    h4 Edit Post
+                .input-field
+                    input#title(type="text" value=title)
+                    label(for="title" class="{{ classIfTrue title 'active' }}") Title
+                .md-editor
+                    +MDEdit(id='postText' defaultContent=post height=1200)
+                    +if $.Session.get 'postLoading'
+                        +LoadingPane
+                .post-labels
+                    +each labels
+                        +if selectedLabel
+                            .label.chip.z-depth-2.selected(style="background-color: {{ color }}; color: {{ textColor }}") {{ text }}
+                        +else
+                            .label.chip(style="background-color: {{ color }}; color: {{ textColor }}") {{ text }}
+                .action-buttons
+                    a.btn.save Save
+                    +if $eq status 'draft'
+                        a.btn.publish Publish
+                    +if isEmpty
+                        a.btn.float-right Discard
+
+
+template(name="RemovePost")
+    #remove-post.modal
+        .form.modal-content
+            +with blogPost
+                .title
+                    h4 Remove '{{ $or title "(untitled)" }}'?
+                .body
+                    p Are you sure?
+                +if $eq status 'published'
+                    p This post has been published. Please retype the title to remove.
+                    .input-field
+                        input#verification(type="text")
+                        label(for="verification") Verify
+                .action-buttons
+                    a.btn.red.lighten-2.confirm-remove
+                        i.material-icons.left delete
+                        | Remove
